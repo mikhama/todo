@@ -5,12 +5,20 @@ import AppHeader from './components/app-header';
 import SearchPanel from './components/search-panel';
 import TodoList from './components/todo-list';
 
-const App = () => (
-  <div>
-    <AppHeader />
-    <SearchPanel />
-    <TodoList />
-  </div>
-);
+const App = () => {
+  const todoData = [
+    { label: 'Drink Coffee', important: false },
+    { label: 'Make Todo App', important: true },
+    { label: 'Have a dinner', important: false },
+  ];
+
+  return (
+    <div>
+      <AppHeader />
+      <SearchPanel />
+      <TodoList todos={todoData} />
+    </div>
+  );
+};
 
 ReactDOM.render(<App />, document.getElementById('root'));
