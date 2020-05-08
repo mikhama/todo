@@ -2,20 +2,28 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
 class TodoListItem extends Component {
-  onLabelClick = () => {
-    console.log(this.props.label)
+  state = {
+    done: false,
   };
+
+  onLabelClick = () => this.setState({ done: true });
 
   render() {
     const { label, important } = this.props;
+    const { done } = this.state;
 
     const style = {
       color: important ? 'steelblue' : 'black',
       fontWeight: important ? 'bold' : 'normal',
     };
 
+    let classNames = 'todo-list-item';
+    if (done) {
+      classNames += ' done';
+    }
+
     return (
-      <span className="todo-list-item">
+      <span className={classNames}>
         <span
           className="todo-list-item-label"
           style={style}
@@ -39,7 +47,7 @@ class TodoListItem extends Component {
         </button>
       </span>
     );
-  }
+  };
 };
 
 TodoListItem.propTypes = {
