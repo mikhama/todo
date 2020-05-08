@@ -4,29 +4,30 @@ import { PropTypes } from 'prop-types';
 class TodoListItem extends Component {
   state = {
     done: false,
+    important: false,
   };
 
   onLabelClick = () => this.setState({ done: true });
 
-  render() {
-    const { label, important } = this.props;
-    const { done } = this.state;
+  onMarkImportant = () => this.setState({ important: true });
 
-    const style = {
-      color: important ? 'steelblue' : 'black',
-      fontWeight: important ? 'bold' : 'normal',
-    };
+  render() {
+    const { label } = this.props;
+    const { done, important } = this.state;
 
     let classNames = 'todo-list-item';
     if (done) {
       classNames += ' done';
     }
 
+    if (important) {
+      classNames += ' important';
+    }
+
     return (
       <span className={classNames}>
         <span
           className="todo-list-item-label"
-          style={style}
           onClick={this.onLabelClick}
         >
           {label}
@@ -35,6 +36,7 @@ class TodoListItem extends Component {
         <button
           type="button"
           className="btn btn-outline-success btn-sm float-right"
+          onClick={this.onMarkImportant}
         >
           <i className="fa fa-exclamation" />
         </button>
