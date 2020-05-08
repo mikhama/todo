@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
 class TodoListItem extends Component {
+  onLabelClick = () => {
+    console.log(this.props.label)
+  };
+
   render() {
     const { label, important } = this.props;
 
@@ -15,6 +19,7 @@ class TodoListItem extends Component {
         <span
           className="todo-list-item-label"
           style={style}
+          onClick={this.onLabelClick}
         >
           {label}
         </span>
