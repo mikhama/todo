@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './item-status-filter.css';
-
 const ItemStatusFilter = () => (
   <div className="btn-group">
     <button

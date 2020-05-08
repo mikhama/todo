@@ -1,8 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-import './todo-list-item.css';
-
 const TodoListItem = ({ label, important }) => {
   const style = {
     color: important ? 'steelblue' : 'black',

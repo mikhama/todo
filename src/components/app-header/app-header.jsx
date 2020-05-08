@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './app-header.css';
-
 const AppHeader = ({ toDo, done }) => (
   <div className="app-header d-flex">
     <h1>Todo List</h1>

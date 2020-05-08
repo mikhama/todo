@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TodoListItem from './todo-list-item';
-
-import './todo-list.css';
+import TodoListItem from '../todo-list-item';
 
 const TodoList = ({ todos }) => {
   const elements = todos.map(({ id, ...itemProps }) => (
