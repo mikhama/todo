@@ -29,6 +29,7 @@ class TodoListItem extends Component {
         <span
           className="todo-list-item-label"
           onClick={this.onLabelClick}
+          role="button"
         >
           {label}
         </span>
@@ -50,8 +51,8 @@ class TodoListItem extends Component {
         </button>
       </span>
     );
-  };
-};
+  }
+}
 
 TodoListItem.propTypes = {
   label: PropTypes.string.isRequired,

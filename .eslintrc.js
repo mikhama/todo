@@ -1,4 +1,5 @@
 module.exports = {
+  parser: 'babel-eslint',
   env: {
     browser: true,
     es6: true,
@@ -19,9 +20,12 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
-    'react',
+    'react'
   ],
   rules: {
-    'react/jsx-props-no-spreading': false
+    'react/jsx-props-no-spreading': 0,
+    'react/state-in-constructor': 0,
+    'jsx-a11y/interactive-supports-focus': 0,
+    'jsx-a11y/click-events-have-key-events': 0,
   },
 };

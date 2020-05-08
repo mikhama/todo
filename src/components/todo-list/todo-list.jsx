@@ -26,6 +26,7 @@ TodoList.propTypes = {
     important: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired,
   })).isRequired,
+  onDeleted: PropTypes.func.isRequired,
 };
 
 export default TodoList;
