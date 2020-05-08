@@ -1,36 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
-const TodoListItem = ({ label, important }) => {
-  const style = {
-    color: important ? 'steelblue' : 'black',
-    fontWeight: important ? 'bold' : 'normal',
-  };
+class TodoListItem extends Component {
+  render() {
+    const { label, important } = this.props;
 
-  return (
-    <span className="todo-list-item">
-      <span
-        className="todo-list-item-label"
-        style={style}
-      >
-        {label}
+    const style = {
+      color: important ? 'steelblue' : 'black',
+      fontWeight: important ? 'bold' : 'normal',
+    };
+
+    return (
+      <span className="todo-list-item">
+        <span
+          className="todo-list-item-label"
+          style={style}
+        >
+          {label}
+        </span>
+
+        <button
+          type="button"
+          className="btn btn-outline-success btn-sm float-right"
+        >
+          <i className="fa fa-exclamation" />
+        </button>
+
+        <button
+          type="button"
+          className="btn btn-outline-danger btn-sm float-right"
+        >
+          <i className="fa fa-trash-o" />
+        </button>
       </span>
-
-      <button
-        type="button"
-        className="btn btn-outline-success btn-sm float-right"
-      >
-        <i className="fa fa-exclamation" />
-      </button>
-
-      <button
-        type="button"
-        className="btn btn-outline-danger btn-sm float-right"
-      >
-        <i className="fa fa-trash-o" />
-      </button>
-    </span>
-  );
+    );
+  }
 };
 
 TodoListItem.propTypes = {
