@@ -12,7 +12,7 @@ class TodoListItem extends Component {
   onMarkImportant = () => this.setState(({ important }) => ({ important: !important }));
 
   render() {
-    const { label } = this.props;
+    const { label, onDeleted } = this.props;
     const { done, important } = this.state;
 
     let classNames = 'todo-list-item';
@@ -44,6 +44,7 @@ class TodoListItem extends Component {
         <button
           type="button"
           className="btn btn-outline-danger btn-sm float-right"
+          onClick={onDeleted}
         >
           <i className="fa fa-trash-o" />
         </button>
@@ -54,11 +55,7 @@ class TodoListItem extends Component {
 
 TodoListItem.propTypes = {
   label: PropTypes.string.isRequired,
-  important: PropTypes.bool,
-};
-
-TodoListItem.defaultProps = {
-  important: false,
+  onDeleted: PropTypes.func.isRequired,
 };
 
 export default TodoListItem;

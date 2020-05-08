@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 
 import TodoListItem from '../todo-list-item';
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, onDeleted }) => {
   const elements = todos.map(({ id, ...itemProps }) => (
     <li key={id} className="list-group-item">
-      <TodoListItem {...itemProps} />
+      <TodoListItem
+        {...itemProps}
+        onDeleted={() => onDeleted(id)}
+      />
     </li>
   ));
 
