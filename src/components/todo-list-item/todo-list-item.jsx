@@ -1,62 +1,59 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
 
-class TodoListItem extends Component {
-  state = {
-    done: false,
-    important: false,
-  };
-
-  onLabelClick = () => this.setState(({ done }) => ({ done: !done }));
-
-  onMarkImportant = () => this.setState(({ important }) => ({ important: !important }));
-
-  render() {
-    const { label, onDeleted } = this.props;
-    const { done, important } = this.state;
-
-    let classNames = 'todo-list-item';
-    if (done) {
-      classNames += ' done';
-    }
-
-    if (important) {
-      classNames += ' important';
-    }
-
-    return (
-      <span className={classNames}>
-        <span
-          className="todo-list-item-label"
-          onClick={this.onLabelClick}
-          role="button"
-        >
-          {label}
-        </span>
-
-        <button
-          type="button"
-          className="btn btn-outline-success btn-sm float-right"
-          onClick={this.onMarkImportant}
-        >
-          <i className="fa fa-exclamation" />
-        </button>
-
-        <button
-          type="button"
-          className="btn btn-outline-danger btn-sm float-right"
-          onClick={onDeleted}
-        >
-          <i className="fa fa-trash-o" />
-        </button>
-      </span>
-    );
+const TodoListItem = ({
+  label,
+  onDeleted,
+  onToggleImportant,
+  onToggleDone,
+  important,
+  done,
+}) => {
+  let classNames = 'todo-list-item';
+  if (done) {
+    classNames += ' done';
   }
-}
+
+  if (important) {
+    classNames += ' important';
+  }
+
+  return (
+    <span className={classNames}>
+      <span
+        className="todo-list-item-label"
+        onClick={onToggleDone}
+        role="button"
+      >
+        {label}
+      </span>
+
+      <button
+        type="button"
+        className="btn btn-outline-success btn-sm float-right"
+        onClick={onToggleImportant}
+      >
+        <i className="fa fa-exclamation" />
+      </button>
+
+      <button
+        type="button"
+        className="btn btn-outline-danger btn-sm float-right"
+        onClick={onDeleted}
+      >
+        <i className="fa fa-trash-o" />
+      </button>
+    </span>
+  );
+};
 
 TodoListItem.propTypes = {
   label: PropTypes.string.isRequired,
+  important: PropTypes.bool.isRequired,
+  done: PropTypes.bool.isRequired,
   onDeleted: PropTypes.func.isRequired,
+  onToggleImportant: PropTypes.func.isRequired,
+  onToggleDone: PropTypes.func.isRequired,
 };
 
 export default TodoListItem;

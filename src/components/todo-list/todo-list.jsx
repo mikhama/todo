@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 
 import TodoListItem from '../todo-list-item';
 
-const TodoList = ({ todos, onDeleted }) => {
+const TodoList = ({
+  todos,
+  onDeleted,
+  onToggleImportant,
+  onToggleDone,
+}) => {
   const elements = todos.map(({ id, ...itemProps }) => (
     <li key={id} className="list-group-item">
       <TodoListItem
         {...itemProps}
         onDeleted={() => onDeleted(id)}
+        onToggleImportant={() => onToggleImportant(id)}
+        onToggleDone={() => onToggleDone(id)}
       />
     </li>
   ));
@@ -29,6 +36,8 @@ TodoList.propTypes = {
     id: PropTypes.number.isRequired,
   })).isRequired,
   onDeleted: PropTypes.func.isRequired,
+  onToggleImportant: PropTypes.func.isRequired,
+  onToggleDone: PropTypes.func.isRequired,
 };
 
 export default TodoList;
