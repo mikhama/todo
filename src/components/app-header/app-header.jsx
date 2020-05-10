@@ -10,6 +10,7 @@ const AppHeader = ({ toDo, done }) => (
       more to do,
       {' '}
       {done}
+      {' '}
       done
     </h2>
   </div>

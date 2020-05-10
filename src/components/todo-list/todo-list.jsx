@@ -6,16 +6,15 @@ import TodoListItem from '../todo-list-item';
 const TodoList = ({
   todos,
   onDeleted,
-  onToggleImportant,
-  onToggleDone,
+  onToggleProperty,
 }) => {
   const elements = todos.map(({ id, ...itemProps }) => (
     <li key={id} className="list-group-item">
       <TodoListItem
         {...itemProps}
         onDeleted={() => onDeleted(id)}
-        onToggleImportant={() => onToggleImportant(id)}
-        onToggleDone={() => onToggleDone(id)}
+        onToggleImportant={() => onToggleProperty(id, 'important')}
+        onToggleDone={() => onToggleProperty(id, 'done')}
       />
     </li>
   ));
@@ -36,8 +35,7 @@ TodoList.propTypes = {
     id: PropTypes.number.isRequired,
   })).isRequired,
   onDeleted: PropTypes.func.isRequired,
-  onToggleImportant: PropTypes.func.isRequired,
-  onToggleDone: PropTypes.func.isRequired,
+  onToggleProperty: PropTypes.func.isRequired,
 };
 
 export default TodoList;

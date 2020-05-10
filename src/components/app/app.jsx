@@ -11,9 +11,9 @@ class App extends Component {
 
   state = {
     todoData: [
-      { label: 'Drink Coffee', important: false, id: 1 },
-      { label: 'Make Todo App', important: true, id: 2 },
-      { label: 'Have a dinner', important: false, id: 3 },
+      this.createTodoItem('Drink Coffee'),
+      this.createTodoItem('Make Todo App'),
+      this.createTodoItem('Have a dinner'),
     ],
   }
 
@@ -23,11 +23,7 @@ class App extends Component {
   }));
 
   addItem = (text) => {
-    const newItem = {
-      label: text,
-      important: false,
-      id: this.lastId += 1,
-    };
+    const newItem = this.createTodoItem(text);
 
     this.setState(({ todoData, ...state }) => ({
       ...state,
@@ -35,16 +31,39 @@ class App extends Component {
     }));
   };
 
-  onToggleImportant = (id) => console.log('important', id);
+  onToggleProperty = (id, propertyName) => this.setState(({ todoData, ...state }) => ({
+    ...state,
+    todoData: todoData.map(
+      (item) => (item.id === id
+        ? { ...item, [propertyName]: !item[propertyName] }
+        : item),
+    ),
+  }));
 
-  onToggleDone = (id) => console.log('done', id);
+  createTodoItem(label) {
+    // eslint-disable-next-line no-multi-assign
+    const id = this.lastId += 1;
+
+    return {
+      id,
+      label,
+      important: false,
+      done: false,
+    };
+  }
 
   render() {
     const { todoData } = this.state;
 
+    const doneCount = todoData.filter((item) => item.done).length;
+    const todoCount = todoData.length - doneCount;
+
     return (
       <div className="todo-app">
-        <AppHeader toDo={1} done={3} />
+        <AppHeader
+          toDo={todoCount}
+          done={doneCount}
+        />
         <div className="top-panel d-flex">
           <SearchPanel />
           <ItemStatusFilter />
@@ -53,8 +72,7 @@ class App extends Component {
         <TodoList
           todos={todoData}
           onDeleted={this.deleteItem}
-          onToggleImportant={this.onToggleImportant}
-          onToggleDone={this.onToggleDone}
+          onToggleProperty={this.onToggleProperty}
         />
         <ItemAddForm
           onAdded={this.addItem}
