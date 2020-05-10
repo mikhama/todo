@@ -1,28 +1,42 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class ItemAddForm extends Component {
-  render() {
-    const { onAdded } = this.props;
+  state = {
+    label: '',
+  };
 
+  onLabelChange = ({ target: { value } }) => this.setState({ label: value });
+
+  onSubmit = (event) => {
+    const { onAdded } = this.props;
+    const { label } = this.state;
+
+    event.preventDefault();
+    onAdded(label);
+  };
+
+  render() {
     return (
-      <div className="input-group mb-3 item-add-form">
+      <form
+        className="input-group mb-3 item-add-form"
+        onSubmit={this.onSubmit}
+      >
         <input
           type="text"
           className="form-control"
           placeholder="What to do?"
+          onChange={this.onLabelChange}
         />
         <div className="input-group-append">
           <button
             className="btn btn-danger"
-            type="button"
-            onClick={() => onAdded('Do what is great')}
+            type="submit"
           >
             Add
           </button>
         </div>
-      </div>
+      </form>
     );
   }
 }
