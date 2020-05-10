@@ -14,9 +14,12 @@ class ItemAddForm extends Component {
 
     event.preventDefault();
     onAdded(label);
+    this.setState({ label: '' });
   };
 
   render() {
+    const { label } = this.state;
+
     return (
       <form
         className="input-group mb-3 item-add-form"
@@ -27,6 +30,7 @@ class ItemAddForm extends Component {
           className="form-control"
           placeholder="What to do?"
           onChange={this.onLabelChange}
+          value={label}
         />
         <div className="input-group-append">
           <button
