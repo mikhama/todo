@@ -13,7 +13,7 @@ class SearchPanel extends Component {
     this.setState({ text: value });
   }
 
-  render() {
+  render = () => {
     const { text } = this.state;
 
     return (

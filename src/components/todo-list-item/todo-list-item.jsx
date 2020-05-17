@@ -6,15 +6,15 @@ const TodoListItem = ({
   onDeleted,
   onToggleImportant,
   onToggleDone,
-  important,
-  done,
+  isImportant,
+  isDone,
 }) => {
   let classNames = 'todo-list-item';
-  if (done) {
+  if (isDone) {
     classNames += ' done';
   }
 
-  if (important) {
+  if (isImportant) {
     classNames += ' important';
   }
 
@@ -49,8 +49,8 @@ const TodoListItem = ({
 
 TodoListItem.propTypes = {
   label: PropTypes.string.isRequired,
-  important: PropTypes.bool.isRequired,
-  done: PropTypes.bool.isRequired,
+  isImportant: PropTypes.bool.isRequired,
+  isDone: PropTypes.bool.isRequired,
   onDeleted: PropTypes.func.isRequired,
   onToggleImportant: PropTypes.func.isRequired,
   onToggleDone: PropTypes.func.isRequired,

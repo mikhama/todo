@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import TodoListItem from '../todo-list-item';
+import { TODO_PROPERTIES } from './constants';
 
 const TodoList = ({
   todos,
@@ -13,8 +14,8 @@ const TodoList = ({
       <TodoListItem
         {...itemProps}
         onDeleted={() => onDeleted(id)}
-        onToggleImportant={() => onToggleProperty(id, 'important')}
-        onToggleDone={() => onToggleProperty(id, 'done')}
+        onToggleImportant={() => onToggleProperty(id, TODO_PROPERTIES.IS_IMPORTANT)}
+        onToggleDone={() => onToggleProperty(id, TODO_PROPERTIES.IS_DONE)}
       />
     </li>
   ));
@@ -31,7 +32,7 @@ const TodoList = ({
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
-    important: PropTypes.bool.isRequired,
+    isImportant: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired,
   })).isRequired,
   onDeleted: PropTypes.func.isRequired,

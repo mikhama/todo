@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class ItemAddForm extends Component {
   state = {
     label: '',
+    isInvalid: false,
   };
 
   onLabelChange = ({ target: { value } }) => this.setState({ label: value });
@@ -13,12 +14,17 @@ class ItemAddForm extends Component {
     const { label } = this.state;
 
     event.preventDefault();
-    onAdded(label);
-    this.setState({ label: '' });
+
+    if (label !== '') {
+      onAdded(label);
+      this.setState({ label: '', isInvalid: false });
+    } else {
+      this.setState({ isInvalid: true });
+    }
   };
 
-  render() {
-    const { label } = this.state;
+  render = () => {
+    const { label, isInvalid } = this.state;
 
     return (
       <form
@@ -27,7 +33,7 @@ class ItemAddForm extends Component {
       >
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${isInvalid ? 'is-invalid' : ''}`}
           placeholder="What to do?"
           onChange={this.onLabelChange}
           value={label}

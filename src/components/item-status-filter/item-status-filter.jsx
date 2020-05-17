@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { FILTER_TYPES } from '../app/constants';
+
 class ItemStatusFilter extends Component {
   buttons = [
     {
-      name: 'all',
+      name: FILTER_TYPES.ALL,
       label: 'All',
     },
     {
-      name: 'active',
+      name: FILTER_TYPES.ACTIVE,
       label: 'Active',
     },
     {
-      name: 'done',
+      name: FILTER_TYPES.DONE,
       label: 'Done',
     },
   ]
@@ -32,13 +34,11 @@ class ItemStatusFilter extends Component {
     ));
   }
 
-  render() {
-    return (
-      <div className="btn-group">
-        {this.renderButtons()}
-      </div>
-    );
-  }
+  render = () => (
+    <div className="btn-group">
+      {this.renderButtons()}
+    </div>
+  );
 }
 
 ItemStatusFilter.propTypes = {

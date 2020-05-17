@@ -5,6 +5,7 @@ import ItemStatusFilter from '../item-status-filter';
 import SearchPanel from '../search-panel';
 import TodoList from '../todo-list';
 import ItemAddForm from '../item-add-form';
+import { FILTER_TYPES } from './constants';
 
 class App extends Component {
   lastId = 100;
@@ -54,13 +55,13 @@ class App extends Component {
 
   filter = (todos, filterType) => {
     switch (filterType) {
-      case 'active': {
-        return todos.filter(({ done }) => !done);
+      case FILTER_TYPES.ACTIVE: {
+        return todos.filter(({ isDone }) => !isDone);
       }
-      case 'done': {
-        return todos.filter(({ done }) => done);
+      case FILTER_TYPES.DONE: {
+        return todos.filter(({ isDone }) => isDone);
       }
-      case 'all':
+      case FILTER_TYPES.ALL:
       default: {
         return todos;
       }
@@ -77,19 +78,19 @@ class App extends Component {
     return {
       id,
       label,
-      important: false,
-      done: false,
+      isImportant: false,
+      isDone: false,
     };
   }
 
-  render() {
+  render = () => {
     const {
       todos,
       filterType,
       searchText,
     } = this.state;
 
-    const doneCount = todos.filter((item) => item.done).length;
+    const doneCount = todos.filter(({ isDone }) => isDone).length;
     const todoCount = todos.length - doneCount;
 
     const visibleTodos = this.search(this.filter(todos, filterType), searchText);
