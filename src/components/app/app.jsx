@@ -10,35 +10,65 @@ class App extends Component {
   lastId = 100;
 
   state = {
-    todoData: [
+    todos: [
       this.createTodoItem('Drink Coffee'),
       this.createTodoItem('Make Todo App'),
       this.createTodoItem('Have a dinner'),
     ],
+    searchText: '',
+    filterType: 'all',
   }
 
-  deleteItem = (id) => this.setState(({ todoData, ...state }) => ({
+  deleteItem = (id) => this.setState(({ todos, ...state }) => ({
     ...state,
-    todoData: todoData.filter((item) => item.id !== id),
+    todos: todos.filter((item) => item.id !== id),
   }));
 
   addItem = (text) => {
     const newItem = this.createTodoItem(text);
 
-    this.setState(({ todoData, ...state }) => ({
+    this.setState(({ todos, ...state }) => ({
       ...state,
-      todoData: [...todoData, newItem],
+      todos: [...todos, newItem],
     }));
   };
 
-  onToggleProperty = (id, propertyName) => this.setState(({ todoData, ...state }) => ({
+  onToggleProperty = (id, propertyName) => this.setState(({ todos, ...state }) => ({
     ...state,
-    todoData: todoData.map(
+    todos: todos.map(
       (item) => (item.id === id
         ? { ...item, [propertyName]: !item[propertyName] }
         : item),
     ),
   }));
+
+  onSearchTextAdded = (searchText) => this.setState((state) => ({
+    ...state,
+    searchText,
+  }));
+
+  onFilterAdded = (filterType) => this.setState((state) => ({
+    ...state,
+    filterType,
+  }));
+
+  filter = (todos, filterType) => {
+    switch (filterType) {
+      case 'active': {
+        return todos.filter(({ done }) => !done);
+      }
+      case 'done': {
+        return todos.filter(({ done }) => done);
+      }
+      case 'all':
+      default: {
+        return todos;
+      }
+    }
+  };
+
+  search = (todos, searchText) => todos
+    .filter(({ label }) => label.match(new RegExp(searchText, 'i')));
 
   createTodoItem(label) {
     // eslint-disable-next-line no-multi-assign
@@ -53,10 +83,16 @@ class App extends Component {
   }
 
   render() {
-    const { todoData } = this.state;
+    const {
+      todos,
+      filterType,
+      searchText,
+    } = this.state;
 
-    const doneCount = todoData.filter((item) => item.done).length;
-    const todoCount = todoData.length - doneCount;
+    const doneCount = todos.filter((item) => item.done).length;
+    const todoCount = todos.length - doneCount;
+
+    const visibleTodos = this.search(this.filter(todos, filterType), searchText);
 
     return (
       <div className="todo-app">
@@ -65,12 +101,17 @@ class App extends Component {
           done={doneCount}
         />
         <div className="top-panel d-flex">
-          <SearchPanel />
-          <ItemStatusFilter />
+          <SearchPanel
+            onSearchTextAdded={this.onSearchTextAdded}
+          />
+          <ItemStatusFilter
+            onFilterAdded={this.onFilterAdded}
+            filterType={filterType}
+          />
         </div>
 
         <TodoList
-          todos={todoData}
+          todos={visibleTodos}
           onDeleted={this.deleteItem}
           onToggleProperty={this.onToggleProperty}
         />

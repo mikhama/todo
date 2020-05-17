@@ -1,31 +1,49 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prefer-stateless-function
 class ItemStatusFilter extends Component {
+  buttons = [
+    {
+      name: 'all',
+      label: 'All',
+    },
+    {
+      name: 'active',
+      label: 'Active',
+    },
+    {
+      name: 'done',
+      label: 'Done',
+    },
+  ]
+
+  renderButtons = () => {
+    const { filterType, onFilterAdded } = this.props;
+
+    return this.buttons.map(({ label, name }) => (
+      <button
+        type="button"
+        className={`btn ${filterType === name ? 'btn-info' : 'btn-outline-secondary'}`}
+        onClick={() => onFilterAdded(name)}
+        key={name}
+      >
+        {label}
+      </button>
+    ));
+  }
+
   render() {
     return (
       <div className="btn-group">
-        <button
-          type="button"
-          className="btn btn-info"
-        >
-          All
-        </button>
-        <button
-          type="button"
-          className="btn btn-outline-secondary"
-        >
-          Active
-        </button>
-        <button
-          type="button"
-          className="btn btn-outline-secondary"
-        >
-          Done
-        </button>
+        {this.renderButtons()}
       </div>
     );
   }
 }
+
+ItemStatusFilter.propTypes = {
+  onFilterAdded: PropTypes.func.isRequired,
+  filterType: PropTypes.string.isRequired,
+};
 
 export default ItemStatusFilter;
